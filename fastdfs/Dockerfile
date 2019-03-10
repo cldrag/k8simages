@@ -71,6 +71,8 @@ RUN apk del gcc libc-dev make openssl-dev
 ENV WEB_PORT 8888
 # 默认fastdfs端口
 ENV FDFS_PORT 22122
+# 默认的trackerserver-ip,指定为0，为设置时，则应该取本机ip
+ENV TRK_SERVER_IP 0
 
 # 创建启动脚本
 RUN     echo -e "\
@@ -78,7 +80,8 @@ mkdir -p /var/local/fdfs/storage/data /var/local/fdfs/tracker; \n\
 ln -s /var/local/fdfs/storage/data/ /var/local/fdfs/storage/data/M00; \n\n\
 sed -i \"s/listen\ .*$/listen\ \$WEB_PORT;/g\" /usr/local/nginx/conf/nginx.conf; \n\
 sed -i \"s/http.server_port=.*$/http.server_port=\$WEB_PORT/g\" /etc/fdfs/storage.conf; \n\n\
-if [ \"\$IP\" = \"\" ]; then \n\
+IP=\$TRK_SERVER_IP;  \n\
+if [ \"\$IP\" = \"0\" ]; then \n\
     IP=`ifconfig eth0 | grep inet | awk '{print \$2}'| awk -F: '{print \$2}'`; \n\
 fi \n\
 sed -i \"s/^tracker_server=.*$/tracker_server=\$IP:\$FDFS_PORT/g\" /etc/fdfs/client.conf; \n\
