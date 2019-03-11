@@ -72,7 +72,11 @@ ENV WEB_PORT 8888
 # 默认fastdfs端口
 ENV FDFS_PORT 22122
 # 默认的trackerserver-ip,指定为0，为设置时，则应该取本机ip
-ENV TRK_SERVER_IP 0
+ENV TRK_SERVER_IP 0,默认为0，不修改配置文件
+# Storage server
+ENV STG_SERVER_IP 0,默认为0，不修改配置文件
+# Storage Server port
+ENV STG_SERVER_PORT 0,默认为0，不修改配置文件
 
 # 创建启动脚本
 RUN     echo -e "\
@@ -87,6 +91,13 @@ fi \n\
 sed -i \"s/^tracker_server=.*$/tracker_server=\$IP:\$FDFS_PORT/g\" /etc/fdfs/client.conf; \n\
 sed -i \"s/^tracker_server=.*$/tracker_server=\$IP:\$FDFS_PORT/g\" /etc/fdfs/storage.conf; \n\
 sed -i \"s/^tracker_server=.*$/tracker_server=\$IP:\$FDFS_PORT/g\" /etc/fdfs/mod_fastdfs.conf; \n\n\
+if [ \"\$STG_SERVER_IP\" != \"0\" ]; then \n\
+    sed -i \"s/^bind_addr=.*$/bind_addr=\$STG_SERVER_IP/g\" /etc/fdfs/storage.conf; \n\
+fi \n\
+if [ \"\$STG_SERVER_PORT\" != \"0\" ]; then \n\
+    sed -i \"s/^port=.*$/port=\$STG_SERVER_PORT/g\" /etc/fdfs/storage.conf; \n\
+fi \n\n\
+
 /etc/init.d/fdfs_trackerd start; \n\
 /etc/init.d/fdfs_storaged start; \n\
 /usr/local/nginx/sbin/nginx; \n\
