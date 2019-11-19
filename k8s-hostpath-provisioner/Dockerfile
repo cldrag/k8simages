@@ -12,7 +12,9 @@ RUN  wget https://raw.githubusercontent.com/cldrag/k8simages/master/k8s-hostpath
      wget https://raw.githubusercontent.com/cldrag/k8simages/master/k8s-hostpath-provisioner/LICENSE   && \
      wget https://raw.githubusercontent.com/cldrag/k8simages/master/k8s-hostpath-provisioner/Makefile   && \
      wget https://raw.githubusercontent.com/cldrag/k8simages/master/k8s-hostpath-provisioner/README.md && \
-     curl https://glide.sh/get | sh 
+     curl https://glide.sh/get | sh && \
+     apt-get update && \
+     apt-get install -y docker.io
 RUN make
 
 FROM scratch
