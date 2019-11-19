@@ -13,8 +13,7 @@ RUN  wget https://raw.githubusercontent.com/cldrag/k8simages/master/k8s-hostpath
      wget https://raw.githubusercontent.com/cldrag/k8simages/master/k8s-hostpath-provisioner/Makefile   && \
      wget https://raw.githubusercontent.com/cldrag/k8simages/master/k8s-hostpath-provisioner/README.md && \
      curl https://glide.sh/get | sh && \
-     apt-get update && \
-     apt-get install -y docker.io
+     wget -qO- https://get.docker.com/ | sh
 RUN make
 
 FROM scratch
