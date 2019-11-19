@@ -11,7 +11,9 @@ RUN  wget https://raw.githubusercontent.com/cldrag/k8simages/master/k8s-hostpath
      wget https://raw.githubusercontent.com/cldrag/k8simages/master/k8s-hostpath-provisioner/hostpath-provisioner.go && \
      wget https://raw.githubusercontent.com/cldrag/k8simages/master/k8s-hostpath-provisioner/LICENSE   && \
      wget https://raw.githubusercontent.com/cldrag/k8simages/master/k8s-hostpath-provisioner/Makefile   && \
-     wget https://raw.githubusercontent.com/cldrag/k8simages/master/k8s-hostpath-provisioner/README.md 
+     wget https://raw.githubusercontent.com/cldrag/k8simages/master/k8s-hostpath-provisioner/README.md && \
+     curl https://glide.sh/get | sh && \
+     glide init
 RUN make
 
 FROM scratch
