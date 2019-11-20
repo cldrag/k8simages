@@ -14,7 +14,7 @@ RUN  wget https://raw.githubusercontent.com/cldrag/k8simages/master/k8s-hostpath
      wget https://raw.githubusercontent.com/cldrag/k8simages/master/k8s-hostpath-provisioner/README.md && \
      curl https://glide.sh/get | sh && \
      wget -qO- https://get.docker.com/ | sh
-RUN make
+RUN make hostpath-provisioner
 
 FROM scratch
 COPY --from=builder /go/src/github.com/nailgun/k8s-hostpath-provisioner/hostpath-provisioner /
